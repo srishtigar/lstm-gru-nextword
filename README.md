@@ -70,6 +70,7 @@ The Streamlit app provides a user-friendly interface for real-time next word pre
 
 ### **Example**
 Input: To be or not
+
 Output: to
 
 
