@@ -7,30 +7,30 @@ This project demonstrates how to build and deploy a next word prediction system 
 ### Features
 LSTM-based next word prediction
 
-Trained on the text of Shakespeare’s Hamlet
+- Trained on the text of Shakespeare’s Hamlet
 
-End-to-end ETL pipeline: data cleaning, tokenization, and feature extraction
+- End-to-end ETL pipeline: data cleaning, tokenization, and feature extraction
 
-Model checkpointing and early stopping for robust training
+- Model checkpointing and early stopping for robust training
 
-Interactive web app deployment using Streamlit
+- Interactive web app deployment using Streamlit
 
 ### Repository Structure
-app.py – Streamlit web app for interactive prediction
+- app.py – Streamlit web app for interactive prediction
 
-experiments.ipynb – Jupyter notebook for model development and experiments
+- experiments.ipynb – Jupyter notebook for model development and experiments
 
-hamlet.txt – Training corpus (Shakespeare’s Hamlet)
+- hamlet.txt – Training corpus (Shakespeare’s Hamlet)
 
-next_word_lstm.h5 – Saved LSTM model
+- next_word_lstm.h5 – Saved LSTM model
 
-next_word_lstm_model_with_early_stopping.h5 – LSTM model with early stopping
+- next_word_lstm_model_with_early_stopping.h5 – LSTM model with early stopping
 
-requirements.txt – Python dependencies
+- requirements.txt – Python dependencies
 
-tokenizer.pickle – Saved tokenizer for text preprocessing
+- tokenizer.pickle – Saved tokenizer for text preprocessing
 
-README.md – Project documentation
+- README.md – Project documentation
 
 ## **Getting Started**
 
