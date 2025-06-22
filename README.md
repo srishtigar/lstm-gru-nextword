@@ -4,7 +4,7 @@ A deep learning system for next word prediction using **LSTM and GRU architectur
 
 ---
 
-## 🚀 Features
+##  Features
 - **Dual-model architecture**: LSTM and GRU implementations
 - **Early stopping** with patience=3 and best weight restoration
 - **Streamlit web app** for real-time predictions
@@ -70,7 +70,7 @@ return tokenizer.index_word[np.argmax(predicted)]
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Python 3.7+
