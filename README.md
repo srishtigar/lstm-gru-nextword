@@ -1,43 +1,83 @@
-# lstm-gru-nextword
-A deep learning project for next word prediction using LSTM and GRU models, trained on Shakespeare’s Hamlet.
+# 🧠 Next Word Prediction with LSTM & GRU
 
-### Overview
-This project demonstrates how to build and deploy a next word prediction system using LSTM (Long Short-Term Memory) neural networks. The model learns to predict the most probable next word in a sequence, which is useful for applications like text auto-completion and conversational AI.
+A deep learning system for next word prediction using **LSTM and GRU architectures**, trained on Shakespeare's *Hamlet*. Features model training, early stopping, and Streamlit deployment.
 
-### Features
-LSTM-based next word prediction
+---
 
-- Trained on the text of Shakespeare’s Hamlet
+## 🚀 Features
+- **Dual-model architecture**: LSTM and GRU implementations
+- **Early stopping** with patience=3 and best weight restoration
+- **Streamlit web app** for real-time predictions
+- **Tokenizer serialization** for consistent preprocessing
+- **Model checkpointing** (.h5 files)
 
-- End-to-end ETL pipeline: data cleaning, tokenization, and feature extraction
+---
 
-- Model checkpointing and early stopping for robust training
+## 📂 Repository Structure
+| File | Purpose |
+|------|---------|
+| `app.py` | Streamlit prediction interface |
+| `experiments.ipynb` | Model training & evaluation |
+| `hamlet.txt` | Shakespeare training corpus |
+| `next_word_lstm.h5` | Trained LSTM model |
+|`next_word_lstm_model_with_early_stopping.h5` | LSTM model with early stopping |
+| `tokenizer.pickle` | Serialized text processor |
+| `requirements.txt` | Python dependencies |
 
-- Interactive web app deployment using Streamlit
+---
 
-### Repository Structure
-- app.py – Streamlit web app for interactive prediction
+## ⚙️ Technical Implementation
 
-- experiments.ipynb – Jupyter notebook for model development and experiments
+### Model Architectures
 
-- hamlet.txt – Training corpus (Shakespeare’s Hamlet)
+LSTM Model
+model = Sequential([
+Embedding(total_words, 100, input_length=max_sequence_len-1),
+LSTM(150, return_sequences=True),
+Dropout(0.2),
+LSTM(100),
+Dense(total_words, activation='softmax')
+])
 
-- next_word_lstm.h5 – Saved LSTM model
+GRU Model
+model = Sequential([
+Embedding(total_words, 100, input_length=max_sequence_len-1),
+GRU(150, return_sequences=True),
+Dropout(0.2),
+GRU(100),
+Dense(total_words, activation='softmax')
+])
 
-- next_word_lstm_model_with_early_stopping.h5 – LSTM model with early stopping
 
-- requirements.txt – Python dependencies
+### Training Details
 
-- tokenizer.pickle – Saved tokenizer for text preprocessing
+- **Optimizer**: Adam
+- **Loss**: Categorical crossentropy
+- **Early Stopping**: Monitor val_loss, patience=3
+- **Final Accuracy**: 
+  - Training: ~9.47% (Epoch 6)
+  - Validation: ~7.48% (Epoch 6)
 
-- README.md – Project documentation
+### Prediction Logic
 
-## **Getting Started**
+def predict_next_word(model, tokenizer, text, max_sequence_len):
+token_list = tokenizer.texts_to_sequences([text])
+token_list = token_list[-(max_sequence_len-1):]
+token_list = pad_sequences([token_list], maxlen=max_sequence_len-1, padding='pre')
+predicted = model.predict(token_list, verbose=0)
+return tokenizer.index_word[np.argmax(predicted)]
 
-### **Prerequisites**
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
 - Python 3.7+
+- TensorFlow 2.x
 
-### **Install dependencies**
+### Installation
+
 pip install -r requirements.txt
 
 
@@ -52,6 +92,13 @@ pip install -r requirements.txt
 
 3. **Try interactive prediction:**  
 Enter a sequence of words and get the predicted next word.
+
+Streamlit UI
+st.title("Next Word Prediction With LSTM")
+input_text = st.text_input("Enter text sequence", "To be or not to")
+if st.button("Predict"):
+next_word = predict_next_word(model, tokenizer, input_text, max_sequence_len)
+st.success(f"Next word: {next_word}")
 
 ---
 
@@ -73,6 +120,19 @@ Input: To be or not
 
 Output: to
 
+---
+
+## 📊 Training Results
+| Epoch | Loss | Accuracy | Val Loss | Val Acc |
+|-------|------|----------|----------|---------|
+| 1 | 7.08 | 0.0299 | 6.94 | 0.0352 |
+| 2 | 6.55 | 0.0361 | 6.87 | 0.0493 |
+| 3 | 6.32 | 0.0495 | 6.79 | 0.0554 |
+| 4 | 6.07 | 0.0644 | 6.81 | 0.0731 |
+| 5 | 5.79 | 0.0859 | 6.81 | 0.0738 |
+| 6 | 5.51 | 0.0947 | 6.91 | 0.0748 |
+
+---
 
 
 
